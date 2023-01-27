@@ -34,6 +34,7 @@
              v-model="cardsAR"
              color="green"
              label="Cards"
+             :disable="!commentListFilter.length"
            />
         </div>
 
@@ -219,9 +220,6 @@ export default defineComponent({
       item.tofile = true
       commentStore.fbUpdatePlan(item)
     }
-  },
-  mounted(){
-    commentStore.cargaComments()
   }
 })
 </script>

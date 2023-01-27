@@ -552,7 +552,6 @@
         }
       },
       setDataComment(item){
-        commentStore.cargaComments()
         this.showComments = true
         this.setComment = item
       },

@@ -11,6 +11,9 @@ export const useCommentsStore = defineStore('comments', {
   getters: {
       readComments(){
         return this.comments
+      },
+      readIdComments(){
+        return this.comments.map(x => x.dateCreate)
       }
   },
   actions: {
@@ -27,6 +30,8 @@ export const useCommentsStore = defineStore('comments', {
         //child added
         linkUser.on('child_added', snapshot => {
           let comment = snapshot.val()
+          this.noDuplicate(comment)
+          console.log(this.readComments);
           this.comments.push(comment)
         })
 
@@ -71,6 +76,11 @@ export const useCommentsStore = defineStore('comments', {
     },
     completeDowload(value){
       this.okDowload = value
+    },
+    noDuplicate(item){
+      let exist = this.readIdComments.find(x => x.dateCreate == item.dateCreate)
+      console.log(exist, !!exist, 'inforacao');
+      return !!exist
     }
   },
 });

@@ -211,18 +211,26 @@ import { ref } from 'vue'
 import { useLawStore } from 'stores/LawsStore'
 import { useSettingStore } from 'stores/SettingsStore'
 import { useAuthStore } from 'stores/AuthStore'
+import { useCommentsStore } from 'stores/CommentsStore'
 
 
 
 const law = useLawStore()
 const settings = useSettingStore()
 const auth = useAuthStore()
+const commentStore = useCommentsStore()
 
 export default {
   setup () {
     auth.handlerAuthStateChange()
     law.cargaLawList()
+
+    setTimeout(() => {
+      commentStore.cargaComments()
+    }, 2000)
+
     settings.cargaSettings()
+
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
     const search = ref()
