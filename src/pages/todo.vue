@@ -361,7 +361,6 @@
               />
               <q-input
                 outlined dense
-                autofocus
                 v-model="taskModel.title"
                 @keyup.esc="taskModel.title = ''"
                 label="Tarefa"
