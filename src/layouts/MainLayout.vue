@@ -212,6 +212,7 @@ import { useLawStore } from 'stores/LawsStore'
 import { useSettingStore } from 'stores/SettingsStore'
 import { useAuthStore } from 'stores/AuthStore'
 import { useCommentsStore } from 'stores/CommentsStore'
+import { userMarkrevStore } from 'stores/MarkRevStore'
 
 
 
@@ -219,6 +220,7 @@ const law = useLawStore()
 const settings = useSettingStore()
 const auth = useAuthStore()
 const commentStore = useCommentsStore()
+const markrevStore = userMarkrevStore()
 
 export default {
   setup () {
@@ -227,6 +229,7 @@ export default {
 
     setTimeout(() => {
       commentStore.cargaComments()
+      markrevStore.cargaMarkRev()
     }, 2000)
 
     settings.cargaSettings()

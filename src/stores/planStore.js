@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia';
 import { firebaseDb, auth } from 'boot/firebase'
 import { Notify } from 'quasar'
-import { useQuasar } from 'quasar'
-const $q = useQuasar()
 
 
 
@@ -69,7 +67,7 @@ export const usePlanStore = defineStore('plan', {
           this.deletePlan(plan)
         })
     },
-    async addPlan(item){
+    addPlan(item){
       let plan = {
         title: item.title,
         concurso: item.concurso,

@@ -209,7 +209,7 @@
 }
 .my-card{
   width: 100%;
-  max-width: 280px;
+  max-width: 300px;
 }
 
 

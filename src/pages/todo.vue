@@ -29,6 +29,18 @@
           @click="reverse = !reverse"
         />
       </div>
+      <div class="row q-mt-sm">
+        <q-btn
+          flat
+          color="primary"
+          icon="update"
+          label="Adicionar itens marcados para revisao"
+          no-caps
+          @click="showMarkRev = true"
+          :disable="!listMarkRev.length"
+        />
+      </div>
+
       <q-separator class="q-my-md"></q-separator>
 
       <q-scroll-area class="scroll-area-task">
@@ -407,6 +419,10 @@
         </q-card>
       </q-dialog>
 
+      <q-dialog v-model="showMarkRev">
+        <markrevDialog :marksrevlist="listMarkRev" @closeMarkrev="showMarkRev = false"/>
+      </q-dialog>
+
       <!-- btn add task -->
       <div class="absolute-bottom text-center q-mb-sm no-pointer-events">
         <q-btn
@@ -420,16 +436,17 @@
 <script>
   import { useTaskStore } from 'stores/TaskStore'
   import { useSettingStore } from 'stores/SettingsStore'
-  import { useCommentsStore } from 'stores/CommentsStore'
+  import { userMarkrevStore } from 'stores/MarkRevStore'
 
   import mixinHighlightDateFormat from '../mixins/date-format'
   import avisos from '../components/tasks/avisos.vue'
   import searchBar from '../components/tasks/searchBar.vue'
   import commentDialog from '../components/comments/dialog.vue'
+  import markrevDialog from '../components/tasks/markrevDialog.vue'
 
   const task = useTaskStore()
   const setting = useSettingStore()
-  const commentStore = useCommentsStore()
+  const markrevStore = userMarkrevStore()
 
   export default {
     mixins:[mixinHighlightDateFormat],
@@ -438,6 +455,7 @@
         planId: this.$route.params.id,
         showAddTask: false,
         showComments: false,
+        showMarkRev: false,
         setComment: {},
         taskModel:{
           planId: this.$route.params.id,
@@ -494,6 +512,9 @@
       },
       disciplinas(){
         return task.readDisciplinas
+      },
+      listMarkRev(){
+        return markrevStore.readMarkRevList
       }
     },
     methods:{
@@ -501,6 +522,11 @@
         task.addTask(item)
         this.deleteId = null
         this.editId = null
+
+        if(item.markRev){
+          markrevStore.addMarkRev(item)
+        }
+
         this.clearTask()
         this.showAddTask = false
       },
@@ -557,7 +583,8 @@
     components:{
       avisos,
       searchBar,
-      commentDialog
+      commentDialog,
+      markrevDialog
     },
     created() {
       task.cargaTasks(this.$route.params.id)
