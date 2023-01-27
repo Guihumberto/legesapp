@@ -201,7 +201,6 @@
                         label="Tarefa"
                         class="q-mt-sm"
                         outlined dense
-                        autofocus
                         v-model="taskModel.title"
                         :rules="[val => !!val || 'Campo Obrigatório']"
                       />

@@ -8,7 +8,7 @@
           <div class="row">
            <q-input
               outlined
-              autofocus dense
+              dense
               v-model="plan.title"
               @keyup.esc="plan.title = ''"
               @keydown.enter.stop="addPlan(plan)"

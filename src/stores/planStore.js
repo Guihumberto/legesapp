@@ -27,7 +27,11 @@ export const usePlanStore = defineStore('plan', {
   }),
   getters: {
       readPlans(){
-        return this.plans
+        let values = this.plans.filter(function (a) {
+          return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+        }, Object.create(null))
+
+        return values
       },
       readUid(){
         return auth

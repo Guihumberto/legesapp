@@ -14,6 +14,7 @@
           >
             <q-input
                 class="textRev"
+                autofocus
                 v-model="comment.title"
                 placeholder="Pergunta/Título"
                 clearable

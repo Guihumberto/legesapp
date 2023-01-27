@@ -46,9 +46,18 @@ export const useTaskStore = defineStore('task', {
         let filtro = this.tasks.filter(task => exp.test(task.title.normalize('NFD')
         .replace(/[\u0300-\u036f]/g, "") ) || exp.test( task.description.replace('.', '') ))
 
+        filtro = filtro.filter(function (a) {
+          return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+        }, Object.create(null))
+
         return filtro
       }
-      return this.tasks
+
+      let values = this.tasks.filter(function (a) {
+        return !this[JSON.stringify(a)] && (this[JSON.stringify(a)] = true);
+      }, Object.create(null))
+
+      return values
     },
     readDisciplinas(){
       return this.disciplinas
