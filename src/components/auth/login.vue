@@ -39,6 +39,7 @@
           type="submit"
         />
         <q-btn
+          v-if="false"
           label="entrar com a conta do gmail"
           color="red-4"
           icon="mail"
