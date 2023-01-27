@@ -25,7 +25,8 @@ module.exports = configure(function (/* ctx */) {
     boot: [
       'firebase',
       'axios',
-      'router-auth'
+      'router-auth',
+      'notify-defaults'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { firebaseDb, auth } from 'boot/firebase'
 import { Notify } from 'quasar'
+import { useQuasar } from 'quasar'
+const $q = useQuasar()
 
 
 
@@ -77,7 +79,6 @@ export const usePlanStore = defineStore('plan', {
       let linkUser = firebaseDb.ref(`/task/${userUid}/plans/${plan.dateCreate}`)
       linkUser.set(plan)
       Notify.create('Planejamento adicionado a lista!')
-
     },
     updatePlan(payload){
       const x = this.plans.map(item => item.dateCreate == payload.dateCreate ? payload : item)
