@@ -46,7 +46,7 @@
       />
 
       <!-- listagem de comentarios -->
-      <q-list separator>
+      <q-list separator v-if="commentList.length">
         <transition-group
           appear
           enter-active-class="animated fadeIn slower"
@@ -103,6 +103,12 @@
           </q-item>
         </transition-group>
       </q-list>
+      <q-banner class="bg-red-2" v-else rounded>
+        <template v-slot:avatar>
+          <q-icon name="do_disturb_alt" color="red" />
+        </template>
+          <span class="text-h6">Não há lembretes de revisao cadastrados.</span>
+      </q-banner>
     </q-scroll-area>
     <q-dialog v-model="cardsAR" persistent>
       <q-card>
