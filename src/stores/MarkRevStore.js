@@ -62,11 +62,11 @@ export const userMarkrevStore = defineStore('markrev', {
       linkUser.set(task)
       Notify.create('Tarefa adicionada a lista de revisao!')
     },
-    updateMarkRev(){
+    updateMarkRev(payload){
       const x = this.markrevList.map(item => item.dateCreate == payload.dateCreate ? payload : item)
       this.markrevList = x
     },
-    deleteMarkRev(){
+    deleteMarkRev(payload){
       let index = this.markrevList.findIndex(x => x.dateCreate == payload.dateCreate)
       this.markrevList.splice(index, 1)
     },
