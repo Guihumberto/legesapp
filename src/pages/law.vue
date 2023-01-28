@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md absolute full-width full-height column">
+  <div class="q-px-md absolute full-width full-height column">
     <template v-if="downloadComplete">
       <q-scroll-area class="scroll-area-task">
         <q-list>
@@ -53,16 +53,19 @@
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:ital,wght@1,100&display=swap');
+
 .scroll-area-task{
   display: flex;
   flex-grow: 1;
 }
 
 .textLawFont{
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px !important;
   letter-spacing: normal;
   line-height: 1.6em;
+  text-align: left;
 }
 
 </style>
