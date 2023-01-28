@@ -3,10 +3,16 @@ import { defineStore } from 'pinia';
 
 export const useLawStore = defineStore('law', {
   state: () => ({
-     laws: []
+     laws: [],
+     nameLaw: 'null'
   }),
   getters: {
-      showLaws: (state) => state.laws
+      showLaws(){
+        return this.laws
+      },
+      readNameLaw(){
+        return this.nameLaw
+      }
   },
   actions: {
      async cargaLawList(){
@@ -21,5 +27,8 @@ export const useLawStore = defineStore('law', {
             console.log(error)
         }
     },
+    setNameLaw(item){
+      this.nameLaw = item
+    }
   },
 });

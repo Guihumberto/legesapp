@@ -4,7 +4,7 @@
         <q-bar dark class="bg-primary text-white">
           <q-btn flat color="white" icon="chevron_left"  to="/" />
             <div class="col text-center text-weight-bold">
-              Nome da Lei
+            Lei {{ nameLawStore.readNameLaw.nro }}
             </div>
           <q-btn color="white" flat icon="list" />
         </q-bar>
@@ -19,11 +19,11 @@
 
 <script>
 import { ref } from 'vue'
+import { useLawStore } from 'stores/LawsStore'
+const nameLawStore = useLawStore()
 
 export default {
   setup () {
-
-
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
     const search = ref()
@@ -37,6 +37,7 @@ export default {
     ]
 
     return {
+      nameLawStore,
       menu,
       search,
       leftDrawerOpen,
