@@ -118,6 +118,10 @@ export default {
 </script>
 
 <style scoped>
-
+.q-carousel{
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 310px;
+}
 
 </style>

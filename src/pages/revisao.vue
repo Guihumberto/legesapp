@@ -70,33 +70,54 @@
                  {{ dateFormat(item.dateCreate) }}
                 </small>
               </q-item-label>
-              <q-item-label><small>Assunto: {{ item.subject }}</small></q-item-label>
+
+              <q-item-label><small>
+                Assunto: {{ item.subject }}</small>
+              </q-item-label>
+
               <q-item-label class="revContent text-body1">
                 {{ item.text }}
               </q-item-label>
 
-              <div class="row justify-end q-mt-sm">
-                <q-btn
-                  color="grey"
-                  icon="edit"
-                  size="sm"
-                  flat round
-                />
-                <q-btn
-                  color="grey"
-                  icon="save_alt"
-                  size="sm"
-                  flat round
-                  title="arquivar"
-                  @click="toFileComment(item)"
-                />
-                <q-btn
-                  :color="item.favorite ? 'amber' : 'grey'"
-                  :icon="item.favorite ? 'fas fa-star':'far fa-star'"
-                  @click="favoriteItem(item)"
-                  size="sm"
-                  flat round
-                />
+              <div class="row justify-between q-mt-sm">
+                <div v-if="item.tofile">
+                  <q-btn outline color="grey" label="Arquivada" size="sm" />
+                  <q-btn
+                    flat
+                    color="green-4"
+                    icon="drive_folder_upload"
+                    title="Desarquivar"
+                    dense
+                    no-caps
+                    @click="toFileComment(item, false)"
+                    />
+
+                </div>
+                <div v-else></div>
+                <div>
+                  <q-btn
+                    color="grey"
+                    icon="edit"
+                    size="sm"
+                    flat round
+                  />
+                  <q-btn
+                    color="grey"
+                    icon="save_alt"
+                    size="sm"
+                    :disable="item.tofile"
+                    flat round
+                    title="arquivar"
+                    @click="toFileComment(item, true)"
+                  />
+                  <q-btn
+                    :color="item.favorite ? 'amber' : 'grey'"
+                    :icon="item.favorite ? 'fas fa-star':'far fa-star'"
+                    @click="favoriteItem(item)"
+                    size="sm"
+                    flat round
+                  />
+                </div>
               </div>
             </q-item-section>
 
@@ -222,8 +243,8 @@ export default defineComponent({
       item.favorite = !item.favorite
       commentStore.fbUpdatePlan(item)
     },
-    toFileComment(item){
-      item.tofile = true
+    toFileComment(item, value){
+      item.tofile = value
       commentStore.fbUpdatePlan(item)
     }
   }
