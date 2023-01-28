@@ -64,7 +64,7 @@ export default defineComponent({
   },
   methods:{
     lawTo(item){
-      console.log(item)
+      this.$router.push(`law/${item.id}`)
     }
   },
 })

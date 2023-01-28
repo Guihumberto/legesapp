@@ -240,8 +240,8 @@ export default {
 
     const menu = [
       {title: "Início", icon: "home", to:"/", footer: true},
-      {title: "Revisão", icon: "task", to:"/rev", footer: true},
       {title: "Plan", icon: "turned_in_not", to:"/plan", footer: true},
+      {title: "Revisão", icon: "task", to:"/rev", footer: true},
       {title: "Configurações", icon: "settings", to:"/settings", footer: false},
       {title: "Sobre", icon: "info", to:"/about", footer: true},
     ]

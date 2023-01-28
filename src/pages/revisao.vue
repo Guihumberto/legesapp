@@ -166,7 +166,7 @@
       <q-btn
         class="all-pointer-events q-ml-sm"
         :disable="!commentList.length"
-        round color="grey" :icon="commentListFilter.length ? 'filter_alt' : 'filter_alt_off'" size="18px" @click="showFilters = true" />
+        round color="grey" :icon="commentList.length ? 'filter_alt' : 'filter_alt_off'" size="18px" @click="showFilters = true" />
     </div>
 
     <!-- toogle cadrs -->
