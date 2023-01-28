@@ -1,49 +1,12 @@
 <template>
   <q-page class="relative-position q-mx-auto" style="max-width: 1880px">
     <q-scroll-area class="absolute full-width full-height">
-      <!-- filtros -->
-      <div class="q-pa-md">
-        <div class="row justify-between">
-          <q-select
-            class="col q-mb-sm" dense
-            v-model="searchDisciplina"
-            :options="filterDisicplinas"
-            option-label="name"
-            option-value="id"
-            label="Disciplina"
-            filled
-          />
-          <q-btn
-            class="q-ml-sm"
-            dense
-            color="grey"
-            :icon="reverse ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'"
-            @click="reverse = !reverse"
-          />
-        </div>
-        <div class="row justify-between">
-          <q-checkbox
-             v-model="searcMarkFav"
-             label="Apenas marcadas como favoritas"
-           />
-           <q-checkbox
-             v-model="toFile"
-             label="Incluir as arquivadas"
-           />
-           <q-toggle
-             v-model="cardsAR"
-             color="green"
-             label="Cards"
-             :disable="!commentListFilter.length"
-           />
-        </div>
 
-      </div>
-      <q-separator
+      <!-- <q-separator
         class="separator"
         size="10px"
         color="grey-2"
-      />
+      /> -->
 
       <!-- listagem de comentarios -->
       <q-list separator v-if="commentList.length">
@@ -123,6 +86,16 @@
 
           </q-item>
         </transition-group>
+        <q-item v-if="!commentListFilter.length && commentList.length" class="bg-red-3 text-white">
+          <q-item-section>
+            <q-item-label class="text-subtitle1">
+              Existem cards de revisao arquivados!!
+            </q-item-label>
+            <q-item-label class="text-caption">
+              Marque a caixa de "incluir arquivadas", no botao de filtro abaixo, para mostrar no painel.
+            </q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
       <q-banner class="bg-red-2" v-else rounded>
         <template v-slot:avatar>
@@ -131,7 +104,7 @@
           <span class="text-h6">Não há lembretes de revisao cadastrados.</span>
       </q-banner>
     </q-scroll-area>
-    <q-dialog v-model="cardsAR" persistent>
+    <q-dialog v-model="cardsAR">
       <q-card>
         <cards :comments="commentListFilter" />
       </q-card>
@@ -139,12 +112,73 @@
     <q-dialog v-model="showAddFastRev" persistent>
       <addFastRev @close="showAddFastRev = false" />
     </q-dialog>
-    <!-- btn add task -->
+
+    <q-dialog v-model="showFilters" position="bottom">
+      <q-card style="width: 350px">
+        <q-linear-progress :value="1" color="pink" />
+
+        <q-card-section class="row items-center no-wrap">
+           <!-- filtros -->
+        <div class="q-pa-md">
+          <q-item-label class="text-overline q-pb-sm">Filtros</q-item-label>
+          <div class="row justify-between">
+            <q-select
+              class="col q-mb-sm" dense
+              v-model="searchDisciplina"
+              :options="filterDisicplinas"
+              option-label="name"
+              option-value="id"
+              label="Disciplina"
+              filled
+            />
+            <q-btn
+              class="q-ml-sm"
+              dense
+              color="grey"
+              :icon="reverse ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'"
+              @click="reverse = !reverse"
+            />
+          </div>
+          <div class="row justify-between">
+            <q-checkbox
+              v-model="searcMarkFav"
+              label="Apenas marcadas como favoritas"
+            />
+            <q-checkbox
+              v-model="toFile"
+              label="Incluir as arquivadas"
+            />
+          </div>
+
+        </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+
+
+
+    <!-- btn add task and filters -->
     <div class="absolute-bottom text-center q-mb-sm no-pointer-events">
-        <q-btn
-          class="all-pointer-events"
-          round color="green" icon="add" size="18px" @click="showAddFastRev = true" />
-      </div>
+      <q-btn
+        class="all-pointer-events"
+        round color="green" icon="add" size="18px" @click="showAddFastRev = true" />
+      <q-btn
+        class="all-pointer-events q-ml-sm"
+        :disable="!commentList.length"
+        round color="grey" :icon="commentListFilter.length ? 'filter_alt' : 'filter_alt_off'" size="18px" @click="showFilters = true" />
+    </div>
+
+    <!-- toogle cadrs -->
+    <div class="absolute-top-right text-center q-mb-sm no-pointer-events q-pa-xs bg-grey-4" v-if="commentListFilter.length">
+        <q-toggle
+              v-model="cardsAR"
+              class="all-pointer-events"
+              color="green"
+              label="Cards"
+              :disable="!commentListFilter.length"
+            />
+    </div>
   </q-page>
 </template>
 
@@ -171,6 +205,7 @@ export default defineComponent({
       reverse: false,
       cardsAR: false,
       showAddFastRev: false,
+      showFilters: false,
       toFile: false
     }
   },
