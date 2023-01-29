@@ -1,27 +1,29 @@
 <template>
-  <div class="q-px-md absolute full-width full-height column">
-    <template v-if="downloadComplete">
-      <q-scroll-area class="scroll-area-task">
-        <q-list>
-          <q-list-item v-for="(item, i) in textLawComplete" :key="i">
-            <q-list-section>
-              <p class="textLawFont">{{ item.textLaw }}</p>
-            </q-list-section>
-          </q-list-item>
-        </q-list>
-      </q-scroll-area>
+  <q-page style="max-width: 1080px; margin: 30px auto">
+    <div class="q-px-md absolute full-width full-height column" >
+      <template v-if="downloadComplete">
+        <q-scroll-area class="scroll-area-task">
+          <q-list>
+            <q-list-item v-for="(item, i) in textLawComplete" :key="i">
+              <q-list-section>
+                <p class="textLawFont">{{ item.textLaw }}</p>
+              </q-list-section>
+            </q-list-item>
+          </q-list>
+        </q-scroll-area>
 
-    </template>
-    <template v-else>
-      <span class="absolute-center">
-          <q-spinner
-            color="primary"
-            size="5em"
-          />
-        </span>
-    </template>
+      </template>
+      <template v-else>
+        <span class="absolute-center">
+            <q-spinner
+              color="primary"
+              size="5em"
+            />
+          </span>
+      </template>
 
-  </div>
+    </div>
+  </q-page>
 </template>
 
 <script>
