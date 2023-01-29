@@ -58,8 +58,8 @@
           </q-item-label>
           <transition-group
               appear
-              enter-active-class="animated zoomIn slower"
-              leave-active-class="animated zoomOut slower"
+              enter-active-class="animated fadeIn slower"
+              leave-active-class="animated fadeInOut slower"
            >
 
             <q-item

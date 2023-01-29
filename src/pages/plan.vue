@@ -26,8 +26,8 @@
           <div class="row items-start q-gutter-md q-mx-auto" style="max-width: 1500px" v-if="plans.length">
             <transition-group
               appear
-              enter-active-class="animated backInLeft slower"
-              leave-active-class="animated backOutLeft slower"
+              enter-active-class="animated fadeIn slower"
+              leave-active-class="animated fadeOut slower"
             >
               <q-card
                 class="my-card q-mb-md"
