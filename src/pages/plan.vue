@@ -124,12 +124,19 @@
               </q-card>
             </transition-group>
           </div>
-          <q-banner class="bg-red-2" v-else rounded>
-            <template v-slot:avatar>
-              <q-icon name="do_disturb_alt" color="red" />
-            </template>
-             <span class="text-h6">Não há planos cadastrados.</span>
-          </q-banner>
+          <div class="bg-red-2" v-else rounded>
+            <div class="absolute-center">
+              <q-icon
+                size="80px"
+                name="do_disturb_alt"
+                color="red-3"
+                class="absolute-center"
+                style="z-index: -1"
+              />
+              <br>
+              <p class="text-caption text-grey text text-center">Não há planos de estudos cadastrados.</p>
+            </div>
+          </div>
         </q-scroll-area>
       </template>
       <template v-else>

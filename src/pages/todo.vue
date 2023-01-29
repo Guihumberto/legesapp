@@ -334,8 +334,8 @@
       <div v-if="!tasks.length && !tasksComplete.length">
         <div class="absolute-center">
           <q-icon
-            size="100px"
-            name="source"
+            size="80px"
+            name="do_disturb_alt"
             color="grey-5"
             class="absolute-center"
             style="z-index: -1"

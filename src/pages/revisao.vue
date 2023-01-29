@@ -97,12 +97,19 @@
           </q-item-section>
         </q-item>
       </q-list>
-      <q-banner class="bg-red-2" v-else rounded>
-        <template v-slot:avatar>
-          <q-icon name="do_disturb_alt" color="red" />
-        </template>
-          <span class="text-h6">Não há lembretes de revisao cadastrados.</span>
-      </q-banner>
+      <div class="bg-red-2" v-else rounded>
+        <div class="absolute-center">
+          <q-icon
+            size="80px"
+            name="do_disturb_alt"
+            color="red-3"
+            class="absolute-center"
+            style="z-index: -1"
+          />
+          <br>
+          <p class="text-caption text-grey text text-center">Não há lembretes de revisao cadastrados.</p>
+        </div>
+      </div>
     </q-scroll-area>
     <q-dialog v-model="cardsAR">
       <q-card>
