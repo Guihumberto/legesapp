@@ -23,10 +23,14 @@
                 </div>
               </div>
             </q-card-section>
+
           </q-card>
-          <q-card-actions align="right">
-            <q-btn outline @click="page = page+1">Próxima</q-btn>
-            <q-btn flat v-close-popup>Fechar</q-btn>
+          <q-card-actions>
+            <q-checkbox keep-color color="grey" v-model="noShowTips" label="Nao mostrar" />
+            <q-space />
+            <q-btn v-if="page > 1" flat @click="page = page-1" icon="chevron_left"/>
+            <q-btn v-if="geral.length != page" flat @click="page = page+1" icon="chevron_right"/>
+            <q-btn v-else flat v-close-popup no-caps>Fechar</q-btn>
           </q-card-actions>
         </q-card>
 </template>
@@ -37,6 +41,7 @@
         return{
           page: 1,
           perPage:1,
+          noShowTips: false,
           geral:[
             {id:1, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},
             {id:2, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},

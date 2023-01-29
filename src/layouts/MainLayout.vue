@@ -247,7 +247,7 @@ export default {
     const rightDrawerOpen = ref(false)
     const search = ref()
 
-    const showtutorial = ref(true)
+    const showtutorial = ref(false)
 
     const menu = [
       {title: "Início", icon: "home", to:"/", footer: true},
@@ -256,6 +256,10 @@ export default {
       {title: "Configurações", icon: "settings", to:"/settings", footer: false},
       {title: "Sobre", icon: "info", to:"/about", footer: true},
     ]
+
+    setTimeout(() => {
+        showtutorial.value = true
+      }, 2000)
 
     return {
       settings,
