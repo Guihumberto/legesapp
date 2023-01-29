@@ -203,6 +203,10 @@
       <router-view />
     </q-page-container>
 
+    <q-dialog v-model="showtutorial" persistent transition-show="flip-down" transition-hide="flip-up">
+      <dialog-tutorial-list-laws />
+    </q-dialog>
+
   </q-layout>
 </template>
 
@@ -213,6 +217,7 @@ import { useSettingStore } from 'stores/SettingsStore'
 import { useAuthStore } from 'stores/AuthStore'
 import { useCommentsStore } from 'stores/CommentsStore'
 import { userMarkrevStore } from 'stores/MarkRevStore'
+import dialogTutorialListLaws  from 'components/tutorial/dialogs/listLaws.vue'
 
 
 
@@ -222,7 +227,11 @@ const auth = useAuthStore()
 const commentStore = useCommentsStore()
 const markrevStore = userMarkrevStore()
 
+
 export default {
+  components:{
+    dialogTutorialListLaws
+  },
   setup () {
     auth.handlerAuthStateChange()
     law.cargaLawList()
@@ -237,6 +246,8 @@ export default {
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
     const search = ref()
+
+    const showtutorial = ref(true)
 
     const menu = [
       {title: "Início", icon: "home", to:"/", footer: true},
@@ -255,10 +266,13 @@ export default {
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
-
       rightDrawerOpen,
       toggleRightDrawer () {
         rightDrawerOpen.value = !rightDrawerOpen.value
+      },
+      showtutorial,
+      toggleDialogTutorial(){
+        showtutorial.value = ! showtutorial.value
       }
     }
   },
