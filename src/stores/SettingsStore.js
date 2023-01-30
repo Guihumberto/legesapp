@@ -38,6 +38,10 @@ export const useSettingStore = defineStore('setting', {
       this.settings.tutorial.home = value
       this.saveSettings()
     },
+    setTipsRev(value){
+      this.settings.tutorial.rev = value
+      this.saveSettings()
+    },
     saveSettings(){
       LocalStorage.set('settings', this.settings)
     },

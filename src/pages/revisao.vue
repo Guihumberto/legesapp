@@ -164,7 +164,12 @@
 
      <!-- btn add task and filters -->
     <div class="absolute-bottom text-center q-mb-sm no-pointer-events">
-      <q-fab color="purple" icon="keyboard_arrow_up" class="all-pointer-events" direction="up">
+      <ballon
+        class="all-pointer-events"
+        @closeTipsBallon="noMoreTips()"
+        v-if="tipsBallon"
+      />
+      <q-fab @click="ballonTips = false" color="purple" icon="keyboard_arrow_up" class="all-pointer-events" direction="up">
           <q-fab-action
             class="all-pointer-events"
             round color="green" icon="add" size="18px" @click="showAddFastRev = true" />
@@ -197,6 +202,9 @@ import addFastRev from 'components/comments/addFastRev.vue'
 import mixinHighlightDateFormat from '../mixins/date-format'
 import { useCommentsStore } from 'stores/CommentsStore'
 const commentStore = useCommentsStore()
+import { useSettingStore } from 'stores/SettingsStore'
+const settings = useSettingStore()
+
 
 import { useTaskStore } from 'stores/TaskStore'
 const taskStore = useTaskStore()
@@ -266,6 +274,9 @@ export default defineComponent({
       })
 
       return disciplinas
+    },
+    tipsBallon(){
+      return settings.readSettings.tutorial.rev
     }
   },
   methods:{
@@ -290,6 +301,9 @@ export default defineComponent({
     toFileComment(item, value){
       item.tofile = value
       commentStore.fbUpdatePlan(item)
+    },
+    noMoreTips(){
+      settings.setTipsRev(false)
     }
   }
 })

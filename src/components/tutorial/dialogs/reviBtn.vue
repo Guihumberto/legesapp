@@ -1,7 +1,12 @@
 <template>
-  <div>
-
-  </div>
+    <div class="balao2 bg-primary row">
+      <div class="col text-white q-pa-sm">
+        <p class="text-weight-thi q-mb-none">
+          Adicione lembretes rápidos e faça filtros.
+        </p>
+        <q-btn flat no-caps color="white" icon="close" dense @click="$emit('closeTipsBallon')" />
+      </div>
+    </div>
 </template>
 
 <script>
@@ -45,11 +50,10 @@
 
 }
 .balao2{
-    background: rgb(207, 172, 172);
     border-radius: 15px;
-    width: 300px;
+    width: 200px;
     height: 100px;
-
+    margin: 30px auto;
     position: relative;
 }
 .balao2:after{
@@ -63,10 +67,10 @@
 
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 20px solid rgb(131, 82, 82);
+    border-top: 20px solid rgb(76, 122, 238);
 
     bottom: -20px;
-    left: 20%;
+    left: 40%;
 }
 
 </style>
