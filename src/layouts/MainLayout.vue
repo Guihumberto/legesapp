@@ -236,10 +236,11 @@ export default {
     auth.handlerAuthStateChange()
     law.cargaLawList()
 
-    setTimeout(() => {
-      commentStore.cargaComments()
-      markrevStore.cargaMarkRev()
-    }, 2000)
+      setTimeout(() => {
+        commentStore.cargaComments()
+        markrevStore.cargaMarkRev()
+      }, 2000)
+
 
     settings.cargaSettings()
 
@@ -250,15 +251,15 @@ export default {
     const showtutorial = ref(false)
 
     const menu = [
-      {title: "Início", icon: "home", to:"/", footer: true},
+      {title: "Leis", icon: "summarize", to:"/", footer: true},
       {title: "Plan", icon: "turned_in_not", to:"/plan", footer: true},
       {title: "Revisão", icon: "task", to:"/rev", footer: true},
       {title: "Configurações", icon: "settings", to:"/settings", footer: false},
-      {title: "Sobre", icon: "info", to:"/about", footer: true},
+      {title: "Sobre", icon: "info", to:"/about", footer: false},
     ]
 
     setTimeout(() => {
-        showtutorial.value = true
+        showtutorial.value = settings.readSettings.tutorial.home
       }, 2000)
 
     return {
