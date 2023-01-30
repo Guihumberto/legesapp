@@ -10,7 +10,6 @@
         next-icon="arrow_right"
         navigation-icon="radio_button_unchecked"
         navigation
-        padding
         arrows
         height="300px"
         class="text-white shadow-1 rounded-borders"
@@ -90,7 +89,8 @@ import { useTaskStore } from 'stores/TaskStore'
 const taskStore = useTaskStore()
 export default {
   props:{
-    comments: Array
+    comments: Array,
+    cardSelect: Number
   },
   data () {
     return {

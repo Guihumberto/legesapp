@@ -9,7 +9,7 @@
       /> -->
 
       <!-- listagem de comentarios -->
-      <q-list separator v-if="commentList.length">
+      <q-list separator v-if="commentList.length" bordered>
         <transition-group
           appear
           enter-active-class="animated fadeIn slower"
@@ -19,6 +19,9 @@
             class="comment q-py-md"
             v-for="(item, i) in commentListFilter"
             :key="i"
+            clickable
+            v-ripple
+            @click="cardCall(i)"
           >
             <q-item-section avatar top>
               <q-avatar size="xl" :color="item.disciplina == 99 ? 'red' : 'primary'" class="text-white">
@@ -113,7 +116,7 @@
     </q-scroll-area>
     <q-dialog v-model="cardsAR">
       <q-card>
-        <cards :comments="commentListFilter" />
+        <cards :comments="commentListFilter" :cardSelect="cardSelect" />
       </q-card>
     </q-dialog>
     <q-dialog v-model="showAddFastRev" persistent>
@@ -222,7 +225,8 @@ export default defineComponent({
       cardsAR: false,
       showAddFastRev: false,
       showFilters: false,
-      toFile: false
+      toFile: false,
+      cardSelect: null
     }
   },
   components:{
@@ -304,6 +308,10 @@ export default defineComponent({
     },
     noMoreTips(){
       settings.setTipsRev(false)
+    },
+    cardCall(item){
+      this.cardSelect = item
+      this.cardsAR = true
     }
   }
 })
