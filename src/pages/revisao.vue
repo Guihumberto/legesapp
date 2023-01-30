@@ -9,14 +9,19 @@
       /> -->
 
       <!-- listagem de comentarios -->
-      <q-list separator v-if="commentList.length" bordered>
+      <q-list
+        separator
+        v-if="commentList.length"
+        bordered
+        class="q-mt-lg"
+      >
         <transition-group
           appear
           enter-active-class="animated fadeIn slower"
           leave-active-class="animated fadeOut slower"
         >
           <q-item
-            class="comment q-py-md"
+            class="comment "
             v-for="(item, i) in commentListFilter"
             :key="i"
             clickable
@@ -45,7 +50,7 @@
                 {{ item.text }}
               </q-item-label>
 
-              <div class="row justify-between q-mt-sm">
+              <div class="row justify-between">
                 <div v-if="item.tofile">
                   <q-btn outline color="grey" label="Arquivada" size="sm" />
                   <q-btn
