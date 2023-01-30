@@ -43,7 +43,7 @@
           perPage:1,
           noShowTips: false,
           geral:[
-            {id:1, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},
+            {id:1, title: "Bem-vindo ao App do Estudo da Lei", text:"Acompanhe as dicas a seguir para um melhor uso do app e tirar o máximo de proveito nos seus estudos."},
             {id:2, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},
             {id:3, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},
             {id:4, title: "lorem plala", text:"lorem blabla bkaad dsldsa dsadsa dsa dsadsa dsadsa"},
