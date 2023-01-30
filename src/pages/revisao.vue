@@ -162,19 +162,19 @@
       </q-card>
     </q-dialog>
 
-
-
-
-    <!-- btn add task and filters -->
+     <!-- btn add task and filters -->
     <div class="absolute-bottom text-center q-mb-sm no-pointer-events">
-      <q-btn
-        class="all-pointer-events"
-        round color="green" icon="add" size="18px" @click="showAddFastRev = true" />
-      <q-btn
-        class="all-pointer-events q-ml-sm"
-        :disable="!commentList.length"
-        round color="grey" :icon="commentList.length ? 'filter_alt' : 'filter_alt_off'" size="18px" @click="showFilters = true" />
+      <q-fab color="purple" icon="keyboard_arrow_up" class="all-pointer-events" direction="up">
+          <q-fab-action
+            class="all-pointer-events"
+            round color="green" icon="add" size="18px" @click="showAddFastRev = true" />
+          <q-fab-action
+            class="all-pointer-events q-ml-sm"
+            :disable="!commentList.length"
+            round color="grey" :icon="commentList.length ? 'filter_alt' : 'filter_alt_off'" size="18px" @click="showFilters = true" />
+      </q-fab>
     </div>
+
 
     <!-- toogle cadrs -->
     <div class="absolute-top-right text-center q-mb-sm no-pointer-events q-pa-xs bg-grey-4" v-if="commentListFilter.length">
@@ -192,6 +192,7 @@
 <script>
 import { defineComponent } from 'vue'
 import cards from 'components/comments/cards.vue'
+import ballon from 'components/tutorial/dialogs/reviBtn.vue'
 import addFastRev from 'components/comments/addFastRev.vue'
 import mixinHighlightDateFormat from '../mixins/date-format'
 import { useCommentsStore } from 'stores/CommentsStore'
@@ -218,7 +219,8 @@ export default defineComponent({
   },
   components:{
     cards,
-    addFastRev
+    addFastRev,
+    ballon
   },
   computed:{
     commentList(){
