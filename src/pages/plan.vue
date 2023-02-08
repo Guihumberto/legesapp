@@ -30,7 +30,7 @@
               leave-active-class="animated fadeOut slower"
             >
               <q-card
-                class="my-card q-mb-md"
+                class="my-card"
                 v-for="(item, i) in plans"
                 :key="i"
               >
@@ -47,9 +47,6 @@
                           <span>{{item.concurso}}</span>
                           <q-space />
                           <span>{{ item.dueDate }}</span>
-                        </div>
-                        <div class="text-subtitle2 row q-mt-md">
-                          <small class="textcaption">Criado em {{ dateFormat(item.dateCreate) }}</small>
                         </div>
                       </template>
 
@@ -79,8 +76,6 @@
                             />
                         </div>
                       </template>
-
-
                     </div>
 
                     <div class="col-auto">
@@ -102,12 +97,17 @@
 
                 <q-separator color="grey" />
 
-                <q-card-actions v-if="deleteId != item.dateCreate && editId != item.dateCreate">
-                    <div>
-                      <q-icon name="event" class="q-mr-xs" /><small v-if="item.dateLastAcess">último acesso: <span class="text-italic">{{ dateFormat(item.dateLastAcess) }}</span></small>
-                    </div>
+                <q-card-actions
+                  v-if="deleteId != item.dateCreate && editId != item.dateCreate"
+                  class="q-px-sm"
+                >
+                    <q-icon
+                      size="sm"
+                      name="info_outline"
+                      color="grey"
+                    />
                     <q-space />
-                    <q-btn outline color="primary" icon="chevron_right" @click="goTo(item)"/>
+                    <q-btn dense outline color="primary" icon="chevron_right" @click="goTo(item)"/>
                 </q-card-actions>
                 <q-card-actions v-else-if="editId == item.dateCreate">
                   <q-space />
@@ -216,7 +216,7 @@
 }
 .my-card{
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 
