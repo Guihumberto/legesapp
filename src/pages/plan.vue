@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bg-grey-3">
-    <div class="q-pa-md absolute full-width full-height column">
+  <q-page class="bg-grey-3  q-mx-auto" style="max-width: 1800px">
+    <div class="q-pa-md absolute full-width full-height column" >
       <template v-if="showMe">
         <h5 class="q-my-md">Planejamento</h5>
         <q-card class="q-pa-md" flat bordered>
@@ -23,7 +23,7 @@
         </q-card>
         <q-separator class="q-my-md" />
         <q-scroll-area class="scroll-area-task">
-          <div class="row items-start q-gutter-md q-mx-auto" style="max-width: 1500px" v-if="plans.length">
+          <div class="row items-start q-gutter-md" v-if="plans.length">
             <transition-group
               appear
               enter-active-class="animated fadeIn slower"
@@ -34,7 +34,7 @@
                 v-for="(item, i) in plans"
                 :key="i"
               >
-                <q-card-section class="bg-blue-5 text-white q-pb-sm">
+                <q-card-section class="text-white q-pb-sm" :class="deleteId != item.dateCreate ? 'bg-blue-5' : 'bg-red-4'">
                   <div class="row items-start no-wrap">
                     <div class="col">
                       <template v-if="editId != item.dateCreate">
@@ -54,11 +54,10 @@
                         <div>
                           <q-input
                             label="Título"
-                            label-color="orange"
-                            dense outlined
-                            class="q-mb-sm"
+                            label-color="white"
+                            dense
+                            class="q-mb-sm full-width"
                             color="white"
-                            bg-color="white"
                             v-model="plan.title"
                             @keydown.enter="planner.fbUpdatePlan(plan), editId = null, clearPlan()"
                            />
@@ -66,11 +65,10 @@
                         <div class="text-subtitle2 row">
                             <q-input
                               label="Concurso"
-                              label-color="orange"
-                              dense outlined
-                              class="q-mb-sm"
+                              label-color="white"
+                              dense
+                              class="q-mb-sm full-width"
                               color="white"
-                              bg-color="white"
                               v-model="plan.concurso"
                               @keydown.enter="planner.fbUpdatePlan(plan), editId = null, clearPlan()"
                             />
@@ -78,15 +76,15 @@
                       </template>
                     </div>
 
-                    <div class="col-auto">
+                    <div class="col-auto" v-if="editId != item.dateCreate && deleteId != item.dateCreate">
                       <q-btn color="white" round flat icon="more_vert">
                         <q-menu cover auto-close>
                           <q-list>
-                            <q-item clickable @click="editId ? editId = null : editTask(item)">
-                              <q-item-section>{{ editId ? 'Cancelar edição' : 'Editar' }}</q-item-section>
+                            <q-item clickable @click="editTask(item)">
+                              <q-item-section>Editar</q-item-section>
                             </q-item>
-                            <q-item clickable @click="deleteId ? deleteId = null : deleteId = item.dateCreate, editId = null">
-                              <q-item-section>{{deleteId ? 'Cancelar remoção' : 'Apagar'}}</q-item-section>
+                            <q-item clickable @click="deleteId = item.dateCreate, editId = null">
+                              <q-item-section>Apagar</q-item-section>
                             </q-item>
                           </q-list>
                         </q-menu>
@@ -101,18 +99,35 @@
                   v-if="deleteId != item.dateCreate && editId != item.dateCreate"
                   class="q-px-sm"
                 >
-                    <q-icon
-                      size="sm"
-                      name="info_outline"
-                      color="grey"
-                    />
+                    <q-btn round flat dense color="purple" icon="info_outline">
+                      <q-menu>
+                        <div class="row no-wrap q-pa-md bg-grey-4">
+                          <div class="column">
+                            <div class="text-h6 q-mb-md">Informações</div>
+                            Data da Criação: {{  dateFormat(item.dateCreate)}} <br>
+                          <span v-if="item.dateLastAcess"> Último acesso:{{ dateFormat(item.dateLastAcess) }}</span>
+                          </div>
+
+                          <q-separator vertical inset class="q-mx-lg" />
+
+                          <div class="column items-center">
+                            <div class="text-h6">{{ item.concurso }}</div>
+                           <div class="text-subtitle1">{{ item.title }}</div>
+
+                           <q-chip :color="!item.status ? 'orange':'grey'" text-color="white" icon="event">
+                            {{!item.status? "Não Iniciado": "Em andamento"}}
+                            </q-chip>
+                          </div>
+                        </div>
+                      </q-menu>
+                    </q-btn>
                     <q-space />
                     <q-btn dense outline color="primary" icon="chevron_right" @click="goTo(item)"/>
                 </q-card-actions>
                 <q-card-actions v-else-if="editId == item.dateCreate">
                   <q-space />
                   <q-btn color="primary" dense label="Editar" @click="planner.fbUpdatePlan(plan), editId = null, clearPlan()" />
-                  <q-btn outline="" dense color="grey" label="Cancelar edição" @click="editId = null" />
+                  <q-btn outline="" dense color="grey" label="Cancelar" @click="editId = null" />
 
                 </q-card-actions>
                 <q-card-actions class="bg-red-5" v-else>
@@ -163,6 +178,7 @@
       return{
         planner,
         editId: null,
+        showInfoPlan: false,
         deleteId: null,
         plan:{
           title: '',
