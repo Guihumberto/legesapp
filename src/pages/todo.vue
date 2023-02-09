@@ -362,15 +362,32 @@
 
           <q-card-section class="q-pt-none">
             <q-form class="q-pa-md" @submit.prevent.stop="addTask(taskModel)">
-              <q-select
-                v-model="taskModel.disciplina"
-                :options="disciplinas"
-                option-label="name"
-                option-value="id"
-                label="Disciplina"
-                outlined dense
-                :rules="[val => !!val || 'Campo Obrigatório']"
-              />
+              <div class="row">
+                <q-select
+                  class="col"
+                  v-model="taskModel.disciplina"
+                  :options="disciplinas"
+                  option-label="name"
+                  option-value="id"
+                  label="Disciplina"
+                  outlined dense
+                  :rules="[val => !!val || 'Campo Obrigatório']"
+                  v-if="!addDisciplina"
+                />
+                <q-input
+                  class="col"
+                  dense v-else
+                  type="text"
+                  label="Disciplina"
+                  :rules="[val => !!val || 'Campo Obrigatório']"
+                  autofocus
+                  placeholder="Digite o nome da disciplina"
+                  clearable
+                  v-model="disciplinaName"
+                />
+                <q-icon size="lg" name="save" color="green"  v-if="addDisciplina" @click="insertDisciplinaList(disciplinaName)" />
+                <q-icon @click="addDisciplina = !addDisciplina" size="lg" :color="addDisciplina ? 'red' : 'primary'" :name=" addDisciplina ? 'do_disturb_on' : 'control_point'" title="adicionar disciplina" />
+              </div>
               <q-input
                 outlined dense
                 v-model="taskModel.title"
@@ -453,6 +470,8 @@
     data(){
       return{
         planId: this.$route.params.id,
+        addDisciplina: false,
+        disciplinaName: null,
         showAddTask: false,
         showComments: false,
         showMarkRev: false,
@@ -579,6 +598,12 @@
         this.showComments = true
         this.setComment = item
       },
+      insertDisciplinaList(item){
+        this.taskModel.disciplina = {id: this.disciplinas.length++, name: item}
+
+        this.disciplinaName = null
+        this.addDisciplina = false
+      }
     },
     components:{
       avisos,

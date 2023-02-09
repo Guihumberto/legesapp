@@ -11,7 +11,7 @@ export const useTaskStore = defineStore('task', {
     ],
     searchTask: null,
     disciplinas: [
-      {id: 0, name: 'Todas'},
+      {id: 0, name: 'Selecione'},
       {id: 1, name: 'Direito Administrativo'},
       {id: 2, name: 'Direito Constitucional'},
       {id: 3, name: 'Direito Previdenciário'},
@@ -24,9 +24,20 @@ export const useTaskStore = defineStore('task', {
       {id: 10, name: 'Direito das Pessoas Com Deficiência'},
       {id: 11, name: 'Normas Aplicáveis aos Servidores Públicos Federais'},
       {id: 12, name: 'Direito das Pessoas Com Deficiência'},
-      {id: 21, name: 'Java Iniciante'},
-      {id: 22, name: 'Java Trilha'},
-      {id: 23, name: 'Java Projetos'},
+      {id: 13, name: 'Direito Civil'},
+      {id: 14, name: 'Direito Penal'},
+      {id: 15, name: 'Controle Externo'},
+      {id: 16, name: 'Contabilidade Pública'},
+      {id: 17, name: 'Contabilidade de Custos'},
+      {id: 18, name: 'Contabilidade Geral'},
+      {id: 19, name: 'Economia'},
+      {id: 20, name: 'Auditoria Governamental'},
+      {id: 21, name: 'Administração Pública'},
+      {id: 22, name: 'Legislação Civil Especial'},
+      {id: 23, name: 'Direito Processual Civil'},
+      {id: 24, name: 'Direito Processual Penal'},
+      {id: 25, name: 'Direito Financeiro'},
+      {id: 26, name: 'Legislação Estadual'},
       {id: 99, name: 'Não Vinculado'},
     ],
   }),
@@ -125,6 +136,14 @@ export const useTaskStore = defineStore('task', {
         typeStudy: item.typeStudy
       }
 
+      // let findDisciplina = this.readDisciplinas.find(x => x.id == task.disciplina.id)
+
+      console.log(task.disciplina);
+
+      // if(!findDisciplina){
+      //   this.addDisciplina(task.disciplina)
+      // }
+
       let userUid = auth.currentUser.uid
       let linkUser = firebaseDb.ref(`/task/${userUid}/plans/${task.planId}/tasks/${task.id}`)
       linkUser.set(task)
@@ -154,6 +173,13 @@ export const useTaskStore = defineStore('task', {
     },
     completeDowload(value){
       this.tasksDownloads = value
+    },
+    addDisciplina(item){
+      let userUid = auth.currentUser.uid
+      let linkUser = firebaseDb.ref(`/task/${userUid}/disciplinas/${item.id}`)
+      linkUser.set(item)
+      Notify.create('Disciplina adicionada.')
+      this.disciplinas.push(item)
     }
   },
 });
