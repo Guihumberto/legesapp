@@ -39,7 +39,7 @@
       enter-active-class="animated slideInUp slower"
       leave-active-class="animated fadeOutDown slower"
     >
-      <q-footer v-if="settings.readSettings.showFooter">
+      <q-footer v-if="$route.name != 'Novas'">
         <q-tabs
           class="text-white"
           dense
