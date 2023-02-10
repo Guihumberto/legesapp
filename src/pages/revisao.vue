@@ -26,7 +26,6 @@
             :key="i"
             clickable
             v-ripple
-            @click="cardCall(i)"
           >
             <q-item-section avatar top>
               <q-avatar size="xl" :color="item.disciplina == 99 ? 'red' : 'primary'" class="text-white">
