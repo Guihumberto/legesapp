@@ -11,7 +11,7 @@
         navigation-icon="radio_button_unchecked"
         navigation
         arrows
-        height="300px"
+        min-height="300px"
         class="text-white shadow-1 rounded-borders"
         :class="answerResponse ? 'bg-purple' : 'bg-primary'"
       >

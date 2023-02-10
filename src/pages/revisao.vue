@@ -21,7 +21,7 @@
           leave-active-class="animated fadeOut slower"
         >
           <q-item
-            class="comment "
+            class="comment q-pt-md"
             v-for="(item, i) in commentListFilter"
             :key="i"
             clickable
@@ -59,7 +59,7 @@
                     title="Desarquivar"
                     dense
                     no-caps
-                    @click="toFileComment(item, false)"
+                    @click.stop="toFileComment(item, false)"
                     />
 
                 </div>
@@ -78,7 +78,7 @@
                     :disable="item.tofile"
                     flat round
                     title="arquivar"
-                    @click="toFileComment(item, true)"
+                    @click.stop="toFileComment(item, true)"
                   />
                   <q-btn
                     :color="item.favorite ? 'amber' : 'grey'"
