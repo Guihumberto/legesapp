@@ -20,21 +20,15 @@
           :options="options"
           option-label="name"
           option-value="value"
-          label="Organizado por" />
+          label="Organizado por" dense
+        />
 
         <q-space />
-        <q-btn
-          :icon="reverse ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'"
-          flat
-          @click="reverse = !reverse"
-        />
-      </div>
-      <div class="row q-mt-sm">
         <q-btn
           flat
           color="primary"
           icon="update"
-          label="Adicionar itens marcados para revisao"
+          title="Adicionar itens marcados para revisao"
           no-caps
           @click="showMarkRev = true"
           :disable="!listMarkRev.length"
@@ -132,58 +126,54 @@
                 </div>
               </q-item-section>
 
-               <!-- btn comment -->
+               <!-- btn comment e more options -->
                <q-item-section
                 side
                 center
                 v-if="deleteId != task.id"
               >
-                <q-btn
-                  icon="sticky_note_2"
-                  flat
-                  round
-                  dense
-                  color="grey-6"
-                  @click.stop="setDataComment(task)"
-                />
-              </q-item-section>
+                <div>
+                  <q-btn
+                    icon="sticky_note_2"
+                    flat
+                    round
+                    dense
+                    color="grey-6"
+                    @click.stop="setDataComment(task)"
+                  />
 
-              <!-- btn edit -->
-              <q-item-section
-                side
-                center
-                v-if="deleteId != task.id"
-              >
-                <q-btn
-                  icon="edit"
-                  flat
-                  round
-                  dense
-                  color="blue-4"
-                  @click.stop="editDialogOpen(task)"
-                />
-              </q-item-section>
+                  <q-btn color="grey-7" round flat icon="more_vert" @click.stop="editId = null">
+                    <q-menu cover auto-close>
+                      <q-list separator>
+                        <q-item clickable  @click.stop="editDialogOpen(task)">
+                          <q-item-section avatar>
+                            <q-icon name="edit" color="grey" />
+                          </q-item-section>
+                          <q-item-section>Editar</q-item-section>
+                        </q-item>
+                        <q-item clickable @click.stop="deleteId = task.id, editId = null">
+                          <q-item-section avatar>
+                            <q-icon name="delete"  color="grey"  />
+                          </q-item-section>
+                          <q-item-section>Excluir</q-item-section>
+                        </q-item>
+                        <q-item clickable @click="markRevEdit(task)">
+                          <q-item-section avatar>
+                            <q-icon :name="task.isRev ? 'check' : 'close'"  color="grey"  />
+                          </q-item-section>
+                          <q-item-section>Revisão</q-item-section>
+                        </q-item>
+                      </q-list>
+                    </q-menu>
+                  </q-btn>
+                </div>
 
-              <!-- btn delete -->
-              <q-item-section
-                side
-                center
-                v-if="deleteId != task.id"
-                class="no-padding"
-              >
-                <q-btn
-                  icon="delete"
-                  flat
-                  round
-                  dense
-                  color="red-4"
-                  @click.stop="deleteId = task.id, editId = null"
-                ></q-btn>
               </q-item-section>
 
               <!-- tela de edição -->
               <q-dialog
                 v-model="edit"
+                persistent
               >
                 <q-card style="width: 700px; max-width: 80vw;">
                   <q-card-section class="bg-primary text-white q-py-sm">
@@ -193,7 +183,7 @@
                       <q-btn
                         icon="close"
                         flat
-                        @click="edit = false"
+                        @click="editClear()"
                       />
                     </div>
                   </q-card-section>
@@ -226,8 +216,23 @@
                         counter clearable
                         placeholder="Descrição da tarefa"
                       />
+                      <q-card bordered class="q-pa-sm" flat>
+                        <span class="q-mb-sm">Tipo de Estudo</span>
+                        <q-option-group
+                          :options="typesStudy"
+                          type="radio"
+                          v-model="taskModel.typeStudy"
+                        />
+                      </q-card>
+                      <q-checkbox
+                      dense
+                        class="q-mt-md"
+                        v-model="taskModel.markRev"
+                        label="Marcar para revisão"
+                      />
                       <div class="row q-mt-md">
                         <q-space></q-space>
+                        <q-btn flat label="Cancelar" @click="editClear()" />
                         <q-btn
                           color="primary"
                           type="submit"
@@ -555,6 +560,15 @@
         this.editId = null
         task.fbUpdateTask(item)
       },
+      markRevEdit(item){
+        item.isRev = !item.isRev
+        task.fbUpdateTask(item)
+        if(item.isRev){
+          markrevStore.addMarkRev(item)
+        } else {
+          markrevStore.fbDeleteMarkRev(item)
+        }
+      },
       deleteTask(item){
         task.fbDeleteTask(item)
         this.deleteId = null
@@ -572,11 +586,18 @@
           complete: false,
           dueDate: item.dueDate,
           disciplina: item.disciplina,
-          dateCreate: item.dateCreate
+          dateCreate: item.dateCreate,
+          typeStudy: item.typeStudy,
+          isRev: item.isRev,
+          markRev: item.markRev,
         }
       },
       editTask(item){
         task.fbUpdateTask(item)
+        this.clearTask()
+        this.edit = false
+      },
+      editClear(){
         this.clearTask()
         this.edit = false
       },

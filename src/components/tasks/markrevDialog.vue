@@ -1,8 +1,8 @@
 <template>
   <q-card style="width: 700px; max-width: 80vw;">
-    <q-card-section class="bg-green text-white q-py-sm">
+    <q-card-section class="bg-grey-8 text-white q-py-sm">
       <div class="row">
-        <div class="text-h6">Tarefas Marcadas para Revisao</div>
+        <div class="text-h6">Marcados para Revisão</div>
         <q-space></q-space>
         <q-btn
           icon="close"
@@ -10,6 +10,9 @@
           @click="$emit('closeMarkrev')"
         />
       </div>
+    </q-card-section>
+    <q-card-section>
+      <q-checkbox class="text-talic" v-model="removeAllCheck" label="Remover da lista após adicionados" color="red" dense/>
     </q-card-section>
     <q-card-section>
       <q-list bordered v-for="(item, i) in listTasks" :key="i">
@@ -23,9 +26,6 @@
             </q-item-label>
             <q-item-label>
                 {{ item.title}}
-            </q-item-label>
-            <q-item-label>
-                {{ item.description}}
             </q-item-label>
           </q-item-section>
         </q-item>
@@ -52,7 +52,8 @@
   export default {
     data(){
       return{
-        list:[]
+        list:[],
+        removeAllCheck: false
       }
     },
     props:{
@@ -76,7 +77,9 @@
             x.planId = this.$route.params.id
             x.markRev = false
             taskStore.addTask(x)
-            markrevStore.fbDeleteMarkRev(x)
+            if(this.removeAllCheck){
+              markrevStore.fbUpdateMarkRev(x)
+            }
           })
           this.$emit('closeMarkrev')
         }

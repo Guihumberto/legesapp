@@ -44,7 +44,7 @@ export const userMarkrevStore = defineStore('markrev', {
     },
     addMarkRev(item){
       let task = {
-        id: Date.now(),
+        id: item.dateCreate,
         planId: item.planId,
         title: item.title,
         description: item.description,
@@ -63,16 +63,16 @@ export const userMarkrevStore = defineStore('markrev', {
       Notify.create('Tarefa adicionada a lista de revisao!')
     },
     updateMarkRev(payload){
-      const x = this.markrevList.map(item => item.dateCreate == payload.dateCreate ? payload : item)
+      const x = this.markrevList.map(item => item.id == payload.dateCreate ? payload : item)
       this.markrevList = x
     },
     deleteMarkRev(payload){
-      let index = this.markrevList.findIndex(x => x.dateCreate == payload.dateCreate)
+      let index = this.markrevList.findIndex(x => x.id == payload.dateCreate)
       this.markrevList.splice(index, 1)
     },
     fbUpdateMarkRev(item){
       let userUid = auth.currentUser.uid
-      let linkUser = firebaseDb.ref(`/task/${userUid}/markrev/${item.dateCreate}`)
+      let linkUser = firebaseDb.ref(`/task/${userUid}/markrev/${item.id}`)
       linkUser.update(item)
       Notify.create('Lista de tarefas para revisao Atualizada!')
     },

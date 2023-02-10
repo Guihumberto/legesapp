@@ -71,7 +71,16 @@ export const useTaskStore = defineStore('task', {
       return values
     },
     readDisciplinas(){
-      return this.disciplinas
+      return this.disciplinas.sort(function (a, b) {
+        if (a.name > b.name) {
+          return 1;
+        }
+        if (a.name < b.name) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      })
     }
   },
   actions: {
@@ -79,7 +88,6 @@ export const useTaskStore = defineStore('task', {
         if(auth.currentUser == null){
           setTimeout(()=> {
             if(auth.currentUser){
-              console.log('verdadeiro')
               return
             } else {
               console.log("igual a null");
@@ -138,7 +146,6 @@ export const useTaskStore = defineStore('task', {
 
       // let findDisciplina = this.readDisciplinas.find(x => x.id == task.disciplina.id)
 
-      console.log(task.disciplina);
 
       // if(!findDisciplina){
       //   this.addDisciplina(task.disciplina)
