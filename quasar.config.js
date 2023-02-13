@@ -108,7 +108,7 @@ module.exports = configure(function (/* ctx */) {
 
     // animations: 'all', // --- includes all animations
     // https://v2.quasar.dev/options/animations
-    animations: ['fadeIn', 'fadeOut', 'fadeInDown', 'zoomIn', 'zoomOut', 'backInLeft', 'backOutLeft', 'slideInUp', 'fadeOutDown', 'bounceInRight', 'bounceOutRight'],
+    animations: ['fadeIn', 'fadeOut', 'fadeInDown', 'zoomIn', 'zoomOut', 'backInLeft', 'backOutLeft', 'slideInUp', 'fadeOutDown', 'bounceInRight', 'bounceOutRight', 'fadeOutRight', 'fadeInRight'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#property-sourcefiles
     // sourceFiles: {

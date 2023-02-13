@@ -65,7 +65,7 @@ export const useCommentsStore = defineStore('comments', {
       const x = this.comments.map(item => item.dateCreate == payload.dateCreate ? payload : item)
       this.comments = x
     },
-    fbUpdatePlan(item){
+    fbUpdateComment(item){
       let userUid = auth.currentUser.uid
       let linkUser = firebaseDb.ref(`/task/${userUid}/comments/${item.dateCreate}`)
       linkUser.update(item)
@@ -73,7 +73,7 @@ export const useCommentsStore = defineStore('comments', {
     },
     fbDeleteComment(item){
       let userUid = auth.currentUser.uid
-      let linkUser = firebaseDb.ref(`/task/${userUid}/comments/${item.dateCreate}`)
+      let linkUser = firebaseDb.ref(`/task/${userUid}/comments/${item}`)
       linkUser.remove()
       Notify.create('Comentário Removido!')
     },
