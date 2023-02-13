@@ -71,6 +71,11 @@
               </div>
             </transition>
 
+            <q-btn-group>
+              <q-btn size="md" dense icon="filter_list" :class="reverse ? 'rotate-180': ''" @click="reverse = !reverse"/>
+              <q-btn flat size="md" color="amber-7" dense :icon="favorites ? 'star' : 'star_outline'"  @click="favorites = !favorites"/>
+            </q-btn-group>
+
             <!-- formulárui -->
           </q-card-section>
 
@@ -172,6 +177,10 @@
           <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
             <q-btn fab icon="keyboard_arrow_up" color="primary" />
           </q-page-scroller>
+          <q-page-scroller position="top" :scroll-offset="350" :offset="[18, 18]" >
+              <q-btn size="md" color="white" dense text-color="grey" icon="filter_list" :class="reverse ? 'rotate-180': ''" @click.stop="reverse = !reverse"/>
+              <q-btn size="md" color="white" text-color="amber-7" dense :icon="favorites ? 'star' : 'star_outline'"  @click.stop="favorites = !favorites"/>
+          </q-page-scroller>
         </q-page>
       </q-page-container>
     </q-layout>
@@ -207,11 +216,17 @@
           text: '',
           dateCreate: null,
         },
+        reverse: false,
+        favorites: false
       }
     },
     computed:{
       commentList(){
-        return commentStore.readComments.filter(x => x.planId == this.planSelect && x.disciplina == this.setComment.disciplina.id)
+        let list = commentStore.readComments.filter(x => x.planId == this.planSelect && x.disciplina == this.setComment.disciplina.id).sort(this.order)
+        if(this.favorites){
+         list = list.filter(x => x.favorite)
+        }
+        return list
       }
     },
     methods: {
@@ -268,7 +283,12 @@
       clearSetId(){
         this.deleteId = null,
         this.editId = null
-      }
+      },
+      order(a, b){
+          return this.reverse
+          ? a.dateCreate -  b.dateCreate
+          : b.dateCreate -  a.dateCreate
+      },
     },
   }
 </script>
